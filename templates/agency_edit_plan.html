@@ -1,0 +1,13 @@
+{% extends 'base.html' %}{% block content %}
+<div class="form-card">
+  <h2>{{ 'Edit Plan' if plan else 'Add Plan' }}</h2>
+  <form method="POST" novalidate>
+    <label>Title</label><input name="title" value='{{ plan.title if plan else "" }}' required>
+    <label>Description</label><textarea name="description">{{ plan.description if plan else "" }}</textarea>
+    <label>Destination</label><input name="destination" value='{{ plan.destination if plan else "" }}'>
+    <label>Duration</label><input name="duration" value='{{ plan.duration if plan else "" }}'>
+    <label>Price</label><input name="price" type="number" step="0.01" value='{{ plan.price if plan else "" }}' required>
+    <button type="submit">Save</button>
+  </form>
+</div>
+{% endblock %}

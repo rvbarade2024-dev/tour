@@ -1,0 +1,20 @@
+{% extends 'base.html' %}{% block content %}
+<div class="form-card">
+  <h2>Create an account</h2>
+  <form method="POST" novalidate>
+    <label>Username</label><input name="username" required minlength="3" placeholder="Choose a username">
+    <label>Password</label><input name="password" type="password" required minlength="6" placeholder="At least 6 chars incl. number">
+    <label>Email</label><input name="email" type="email" placeholder="you@example.com">
+    <label>Role</label>
+    <select name="role" id="role" onchange="toggleAgency()">
+      <option value="customer">Customer</option>
+      <option value="agency">Agency</option>
+    </select>
+    <div id="agency_field" style="display:none">
+      <label>Agency Name</label><input name="agency_name" placeholder="Agency name">
+    </div>
+    <button type="submit">Register</button>
+  </form>
+</div>
+<script>function toggleAgency(){var role=document.getElementById('role').value;document.getElementById('agency_field').style.display=role==='agency'?'block':'none'}</script>
+{% endblock %}

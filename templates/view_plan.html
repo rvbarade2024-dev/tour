@@ -1,0 +1,22 @@
+{% extends 'base.html' %}{% block content %}
+<div class="card">
+  <h2>{{ plan.title }}</h2>
+  <p class="muted">By {{ plan.agency_name }}</p>
+  <p>{{ plan.description }}</p>
+  <p><strong>Duration:</strong> {{ plan.duration }}</p>
+  <p><strong>Price (per seat):</strong> ₹{{ plan.price }}</p>
+  {% if session.get('role') == 'customer' %}
+    <div class="form-card">
+      <h3>Book this plan</h3>
+      <form method="POST" action="{{ url_for('book') }}">
+        <input type="hidden" name="plan_id" value="{{ plan.id }}">
+        <label>Travel Date</label><input name="travel_date" type="date" required>
+        <label>Seats</label><input name="seats" type="number" min="1" value="1" required>
+        <button type="submit">Book Now</button>
+      </form>
+    </div>
+  {% else %}
+    <p>Please <a href="{{ url_for('login') }}">login as customer</a> to book.</p>
+  {% endif %}
+</div>
+{% endblock %}

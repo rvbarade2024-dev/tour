@@ -1,0 +1,18 @@
+{% extends 'base.html' %}{% block content %}
+<h2>Popular Plans</h2>
+<div class="plans-grid">
+  {% for p in plans %}
+    <div class="card plan-card">
+      <h3>{{ p.title }}</h3>
+      <p class="muted">{{ p.destination }} • {{ p.duration }}</p>
+      <p>{{ p.description[:120] }}{% if p.description|length>120 %}...{% endif %}</p>
+      <div class="card-row">
+        <div class="price">₹{{ p.price }}</div>
+        <a class="btn" href="{{ url_for('view_plan', plan_id=p.id) }}">View</a>
+      </div>
+    </div>
+  {% else %}
+    <p>No plans yet.</p>
+  {% endfor %}
+</div>
+{% endblock %}

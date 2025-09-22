@@ -1,0 +1,33 @@
+{% extends 'base.html' %}{% block content %}
+<h2>Customer Dashboard</h2>
+<h3>Available Plans</h3>
+<div class="plans-grid">
+  {% for plan in plans %}
+    <div class="card plan-card">
+      <h3>{{ plan.title }}</h3>
+      <p class="muted">{{ plan.destination }} • {{ plan.duration }}</p>
+      <p>{{ plan.description[:100] }}{% if plan.description|length>100 %}...{% endif %}</p>
+      <div class="card-row">
+        <div class="price">₹{{ plan.price }}</div>
+        <a class="btn" href="{{ url_for('view_plan', plan_id=plan.id) }}">View</a>
+      </div>
+    </div>
+  {% endfor %}
+</div>
+<h3>Your Bookings</h3>
+<ul class="list-cards">
+  {% for b in bookings %}
+    <li class="card">
+      <strong>{{ b.title }}</strong> — {{ b.travel_date }} — Status: {{ b.status }}
+      <div style="margin-top:8px;">
+        {% if b.status != 'paid' %}
+          <a href="{{ url_for('payment', booking_id=b.id) }}" class="btn small">Pay Now</a>
+          <form style="display:inline" method="post" action="{{ url_for('cancel_booking', booking_id=b.id) }}"><button class="link-btn" type="submit">Cancel</button></form>
+        {% endif %}
+      </div>
+    </li>
+  {% else %}
+    <li>No bookings yet.</li>
+  {% endfor %}
+</ul>
+{% endblock %}
